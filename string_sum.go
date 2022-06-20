@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	codePointPlus  = '+'
-	codePointMinus = '-'
+	operatorPlus  string = "+"
+	operatorMinus string = "-"
 )
 
 //use these errors as appropriate, wrapping them with fmt.Errorf function
@@ -37,7 +37,7 @@ var (
 
 func StringSum(input string) (output string, err error) {
 
-	var cashOperand rune //   +/-
+	var cashOperator string //   +/-
 
 	input = replaceWhiteSpacies(input)
 	if input == "" {
@@ -57,11 +57,11 @@ func StringSum(input string) (output string, err error) {
 		if unicode.IsDigit(v) {
 			cashNum += string(v) // собрать числа из цифр
 		} else {
-			afterDigitReading(cashOperand)
-			cashOperand = v
+			afterDigitReading(cashOperator)
+			cashOperator = string(v)
 		}
 	}
-	afterDigitReading(cashOperand)
+	afterDigitReading(cashOperator)
 
 	// Errors - operand count
 	if len(numberCount) == 1 {
@@ -75,7 +75,7 @@ func StringSum(input string) (output string, err error) {
 	return output, nil
 }
 
-func afterDigitReading(cashOperand rune) {
+func afterDigitReading(cashOperand string) {
 	if cashNum != "" {
 		numberCount = append(numberCount, cashNum)
 	}
@@ -83,13 +83,13 @@ func afterDigitReading(cashOperand rune) {
 	cashNum = ""
 }
 
-func getResultSum(cashOperand rune) {
-	cash := getOperand(string(cashOperand))
+func getResultSum(cashOperand string) {
+	cash := getOperand(cashOperand)
 	cashNumToInt, _ := strconv.Atoi(string(cashNum))
-	if cash == string(codePointPlus) {
+	if cash == string(operatorPlus) {
 		result += cashNumToInt
 	}
-	if cash == string(codePointMinus) {
+	if cash == string(operatorMinus) {
 		result -= cashNumToInt
 	}
 }
@@ -106,11 +106,11 @@ func replaceWhiteSpacies(str string) string {
 
 // если в начале не стоит знак (+/-), то будем считать, что cashOperand = '+'
 func getOperand(cash string) string {
-	if cash == string(codePointMinus) {
+	if cash == operatorMinus {
 		return cash
 	}
-	if cash == string(codePointPlus) {
+	if cash == operatorPlus {
 		return cash
 	}
-	return string(codePointPlus)
+	return operatorPlus
 }
