@@ -36,7 +36,7 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
-	var resString string
+
 	var cashOperand rune //   +/-
 
 	input = replaceWhiteSpacies(input)
@@ -71,8 +71,8 @@ func StringSum(input string) (output string, err error) {
 		return "", fmt.Errorf("error occured: an expression contains greater than two operands (%d): %w", len(numberCount), errorNotTwoOperands)
 	}
 
-	resString = strconv.Itoa(result)
-	return resString, nil
+	output = strconv.Itoa(result)
+	return output, nil
 }
 
 func afterDigitReading(cashOperand rune) {
