@@ -1,6 +1,4 @@
-# golang-united-school-homework-4
-
-Implement a function that computes the sum of two int numbers written as a string
+Function that computes the sum of two int numbers written as a string
 
 For example, having an input string "3+5", it should return output string "8" and nil error
 
